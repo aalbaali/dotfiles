@@ -1,5 +1,6 @@
 #source ~/.bashrc
 export ZPLUG_HOME=~/.zplug
+export ZSH=/home/amro.al-baali/.oh-my-zsh
 
 # Get zplug if it doesn't exist
 if [[ ! -d $ZPLUG_HOME ]];then
@@ -18,10 +19,10 @@ zplug "arzzen/calc.plugin.zsh"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
 fi
 
 # Source plugins
@@ -30,17 +31,22 @@ zplug load
 # Options
 setopt autopushd pushdignoredups
 
-# Configure spaceship prompt
+# configure spaceship prompt
 SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
   dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  line_sep      # Line break
+#  user          # Username section
+#  host          # Hostname section
+#  git           # Git section (git_branch + git_status)
+#  line_sep      # Line break
   char          # Prompt character
 )
 SPACESHIP_DIR_TRUNC=0
-SPACESHIP_PROMPT_ADD_NEWLINE=0
+SPACESHIP_DIR_TRUNC_REPO=false
+#SPACESHIP_PROMPT_ADD_NEWLINE=true
+#SPACESHIP_PROMPT_SEPARATE_LINE=true
+#SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
+SPACESHIP_USER_SHOW=never # When to show user name
+SPACESHIP_USER_PREFIX='no '
 
 # Stop prompt from setting tmux title
 DISABLE_AUTO_TITLE=true
@@ -50,7 +56,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#707880"
 # Autosuggest completion
 bindkey '^ ' autosuggest-accept
 # Autosuggestion completion and execution ('^M' is the return key)
-bindkey '^o' autosuggest-execute
+bindkey '^j' autosuggest-execute
 
 # Aliases
 alias ls='ls --color=auto'
@@ -70,6 +76,7 @@ alias fd='fdfind'
 alias a="apt-cache search '' | sort | cut --delimiter ' ' --fields 1 | fzf --multi --cycle --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt install -y"
 
 # Source fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Enable Ctrl-x to edit command line in vim
 autoload -U edit-command-line
@@ -99,17 +106,6 @@ zb()
 # Log CPU and memory usage of a process
 logpid() { while sleep 1; do  ps -p $1 -o pcpu= -o pmem= ; done; }
 
-set_wallpaper() 
-{
-  ln -sf $1 ~/.wallpaper
-  feh --bg-scale ~/.wallpaper
-}
-
-autoload -U compinit 
-compinit
-# Source localrc
-#[ -f ~/.localrc ] && source ~/.localrc
-
 setopt autocd 
 autoload -Uz compinit
 compinit
@@ -121,3 +117,5 @@ if [ -f ~/avidbots_networking/aliases ]; then
     . ~/avidbots_networking/aliases
 fi
 
+# Source localrc
+[ -f ~/.localrc ] && source ~/.localrc
