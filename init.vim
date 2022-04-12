@@ -31,11 +31,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'jamestthompson3/nvim-remote-containers'  " similar to vscode remote container
 
-if has('patch-8.1.2269')
-  Plug 'ycm-core/YouCompleteMe' " Autocomplete and much more
-else
-  Plug 'ycm-core/YouCompleteMe', { 'commit':'d98f896' }
-endif
+Plug 'ycm-core/YouCompleteMe' " Autocomplete and much more
 
 call plug#end()
 
