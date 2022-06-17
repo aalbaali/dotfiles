@@ -29,4 +29,5 @@ apt-get install -y \
   dunst \
   sxhkd \
   zsh \
-  fzf
+  fzf \
+  silversearcher-ag
