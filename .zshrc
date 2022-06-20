@@ -1,4 +1,7 @@
-#source ~/.bashrc
+# 'source' autocompletion from bash
+autoload bashcompinit
+bashcompinit
+
 export ZPLUG_HOME=~/.zplug
 export ZSH=/home/amro.al-baali/.oh-my-zsh
 
@@ -29,7 +32,7 @@ fi
 zplug load
 
 # Options
-setopt autopushd pushdignoredups
+# setopt autopushd pushdignoredups
 
 # configure spaceship prompt
 SPACESHIP_PROMPT_ORDER=(
@@ -56,7 +59,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#707880"
 # Autosuggest completion
 bindkey '^ ' autosuggest-accept
 # Autosuggestion completion and execution ('^M' is the return key)
-bindkey '^j' autosuggest-execute
+bindkey '^;' autosuggest-execute
 
 # Aliases
 alias ls='ls --color=auto'
@@ -77,6 +80,9 @@ alias a="apt-cache search '' | sort | cut --delimiter ' ' --fields 1 | fzf --mul
 
 # Source fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPS="--extended"
+export FZF_DEFAULT_COMMAND="fdfind --type f"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Enable Ctrl-x to edit command line in vim
 autoload -U edit-command-line
@@ -106,9 +112,9 @@ gz()
 # Log CPU and memory usage of a process
 logpid() { while sleep 1; do  ps -p $1 -o pcpu= -o pmem= ; done; }
 
-setopt autocd 
-autoload -Uz compinit
-compinit
+#setopt autocd 
+#autoload -Uz compinit
+#compinit
 
 source ~/Dev/robot-dev/docker_init.sh &> /dev/null
 # Networking alias
@@ -119,3 +125,114 @@ fi
 
 # Source localrc
 [ -f ~/.localrc ] && source ~/.localrc
+
+
+unsetopt menu_complete
+#setopt list_ambiguous
+unsetopt list_ambiguous
+setopt bash_auto_list
+
+# Python default version
+#alias python=python3
+alias gll="git log --graph --oneline --all --decorate"
+alias gs="git status"
+alias gm="git commit"
+alias ga="git add"
+alias gb="git branch"
+alias gc="git checkout"
+
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias di="docker image"
+alias dils="docker image ls"
+alias drm="docker rm"
+alias drmi="docker rmi"
+
+alias vsc="code -n ."
+
+# Open tmux after a restart. It creates a new session then deletes it.
+alias mux='pgrep -vx tmux > /dev/null && \
+		tmux new -d -s delete-me && \
+		tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && \
+		tmux kill-session -t delete-me && \
+		tmux attach || tmux attach'
+
+#source /home/amro.al-baali/.bash_aliases
+
+fpath=(~/.zsh $fpath)
+########################
+# git shortcus
+########################
+#if [ -f $HOME/.aliases/git_aliases.sh ]; then
+#  source $HOME/.aliases/git_aliases.sh
+#
+#  alias gll="git log --graph --oneline --all --decorate"
+#  alias gs="git status"
+#  alias gm="git commit"
+#  alias ga="git add"
+#  alias gb="git branch"
+#  alias gc="git checkout"
+#fi
+
+alias vsc="code -n ."
+
+########################
+# workspaces
+########################
+if [ -d $HOME/.workspace ]; then
+  for d in $HOME/.workspace/*/; do
+    ws=$(basename $d)
+    input='$1'
+    num_input='$#'
+    source /dev/stdin << EOF
+function create_${ws}() {
+  if [ ${num_input} -eq 0 ]; then
+    echo "Usage: create_${ws} <name>";
+    return 1;
+  fi
+  cp -r $d/. ${input};
+};
+EOF
+  done
+fi
+
+########################
+# Github
+########################
+if command -v gh &> /dev/null; then
+  eval "$(gh completion -s bash)"
+fi
+
+########################
+# ROS
+########################
+function noetic_gazebo() {
+  docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -u ros athackst/ros:noetic-gazebo gazebo
+}
+
+
+# Open tmux after a restart. It creates a new session then deletes it.
+alias mux='pgrep -vx tmux > /dev/null && \
+		tmux new -d -s delete-me && \
+		tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && \
+		tmux kill-session -t delete-me && \
+		tmux attach || tmux attach'
+
+
+################################################################################
+# Docker
+################################################################################
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias di="docker image"
+alias dils="docker image ls"
+alias drm="docker rm"
+alias drmi="docker rmi"
+
+# Julia aliases
+alias jj=julia
+alias jfranklin="julia -e 'using Franklin; serve()'"
+alias jpluto="julia -e 'using Pluto; Pluto.run()'"
+
+# File sizes
+alias sz=ncdu
