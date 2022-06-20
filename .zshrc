@@ -94,7 +94,7 @@ mkcd()
 }
 
 # Fuzzy checkout git branch with fzf
-zb() 
+gz() 
 {
   local branches branch
   branches=$(git branch --all | grep -v HEAD) &&
