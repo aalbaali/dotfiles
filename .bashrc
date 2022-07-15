@@ -115,6 +115,19 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+source ~/Dev/robot-dev/docker_init.sh &> /dev/null
+
+
+# Networking alias
+# Check https://avidbots.atlassian.net/wiki/spaces/ROBOTSYS/pages/24838213/Developer+Networking+Setup
+if [ -f ~/avidbots_networking/aliases ]; then
+    . ~/avidbots_networking/aliases
+fi
+
+#setopt menu_complete   # do not autoselect the first completion entry
+#unsetopt flowcontrol
+#setopt auto_menu         # show completion menu on succesive tab press
+#zstyle ':completion:*:*:*:*:*' menu select
 
 # Open visual studio code folder in this directory
 alias vsc="code -n ."

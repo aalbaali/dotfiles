@@ -231,6 +231,14 @@ alias di="docker image"
 alias dils="docker image ls"
 alias drm="docker rm"
 alias drmi="docker rmi"
+alias ds="docker start"
+
+# List running container names
+function dn() {
+  docker ps $@ | awk 'FNR > 1 {print $(NF)}'
+}
+
+alias dna="dn -a"
 
 # Execute already running containers
 function dex() {
@@ -241,7 +249,7 @@ docker exec -it $1 bash
 #   1. Get all docker *running* containers (i.e., witout the `-a` flag)
 #   2. Get all rows after the first row (FNR > 1)
 #   3. Print last column ($(NF))
-complete -W "$(docker ps | awk 'FNR > 1 {print $(NF)}')" dex
+complete -C "dn" dex
 
 # Julia aliases
 alias jj=julia
