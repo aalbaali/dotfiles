@@ -242,7 +242,12 @@ alias dna="dn -a"
 
 # Execute already running containers
 function dex() {
-docker exec -it $1 bash
+  # Start container if not started
+  if [ $(docker container inspect -f '{{.State.Status}}' $1) != "running" ]; then
+    echo -e "\033[93mContainer \033[36;1m$1\033[0;93m not running. Will start it\033[0m"
+    ds $1;
+  fi
+  docker exec -it $1 bash
 }
 
 # Complete `dex` with a list of running containers
