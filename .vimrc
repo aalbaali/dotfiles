@@ -19,6 +19,8 @@ Plug 'skywind3000/asyncrun.vim' " Run commands / builds in background
 Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between vim and tmux
 Plug 'sheerun/vim-polyglot' " Better syntax highlighting
 Plug 'w0ng/vim-hybrid' " Colorscheme
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 if has('patch-8.1.2269')
   Plug 'ycm-core/YouCompleteMe' " Autocomplete and much more
@@ -67,4 +69,31 @@ if executable('rg')
   let g:rg_derive_root='true'
 endif
 
+" -- fzf
+nnoremap <leader>o :Files<CR>
+nnoremap <leader>i :Buffers<CR>
+nnoremap <leader>/ :Lines<CR>
+nnoremap <leader>a :Ag<space>
+nnoremap <leader>p :History<CR>
+nnoremap <leader>: :History:<CR>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""' " ignore files in .gitignore
+let g:fzf_layout = { 'down': '~40%' }
 
+function! FZFSameName(sink, pre_command, post_command)
+    let current_file_no_extension = expand("%:t:r")
+    let current_file_with_extension = expand("%:t")
+    execute a:pre_command
+    call fzf#run(fzf#wrap({
+          \ 'source': 'find -name "' . current_file_no_extension . '.*" | grep -Ev "*' . current_file_with_extension . '$"',
+          \ 'options': -1, 'sink': a:sink}))
+    execute a:post_command
+endfunction
+nnoremap <leader>ff :call FZFSameName('e', '', '')<CR>
+nnoremap <leader>fh :call FZFSameName('e', 'wincmd h', '')<CR>
+nnoremap <leader>fl :call FZFSameName('e', 'wincmd l', '')<CR>
+nnoremap <leader>fk :call FZFSameName('e', 'wincmd k', '')<CR>
+nnoremap <leader>fj :call FZFSameName('e', 'wincmd j', '')<CR>
+nnoremap <leader>fH :call FZFSameName('leftabove vsplit', '', 'wincmd h')<CR>
+nnoremap <leader>fL :call FZFSameName('rightbelow vsplit', '', 'wincmd l')<CR>
+nnoremap <leader>fK :call FZFSameName('leftabove split', '', 'wincmd k')<CR>
+nnoremap <leader>fJ :call FZFSameName('rightbelow split', '', 'wincmd j')<CR>
