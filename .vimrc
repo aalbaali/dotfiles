@@ -21,6 +21,7 @@ Plug 'sheerun/vim-polyglot' " Better syntax highlighting
 Plug 'w0ng/vim-hybrid' " Colorscheme
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
 
 if has('patch-8.1.2269')
   Plug 'ycm-core/YouCompleteMe' " Autocomplete and much more
@@ -97,3 +98,11 @@ nnoremap <leader>fH :call FZFSameName('leftabove vsplit', '', 'wincmd h')<CR>
 nnoremap <leader>fL :call FZFSameName('rightbelow vsplit', '', 'wincmd l')<CR>
 nnoremap <leader>fK :call FZFSameName('leftabove split', '', 'wincmd k')<CR>
 nnoremap <leader>fJ :call FZFSameName('rightbelow split', '', 'wincmd j')<CR>
+
+" vim-gutter
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
+
