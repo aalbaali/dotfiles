@@ -22,6 +22,7 @@ Plug 'w0ng/vim-hybrid' " Colorscheme
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'rhysd/vim-clang-format'
 
 if has('patch-8.1.2269')
   Plug 'ycm-core/YouCompleteMe' " Autocomplete and much more
@@ -106,3 +107,6 @@ function! GitStatus()
 endfunction
 set statusline+=%{GitStatus()}
 
+" vim-clang-format
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
