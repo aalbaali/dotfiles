@@ -8,21 +8,20 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'             " Git comments
 Plug 'leafgarland/typescript-vim'
-Plug 'vim-utils/vim-man'
+Plug 'vim-utils/vim-man'              " View `man` pages in vim
 Plug 'lyuts/vim-rtags'
-Plug 'kien/ctrlp.vim'
-Plug 'mrtazz/DoxygenToolkit.vim' " Auto-insert Doxygen comments
-Plug 'tpope/vim-commentary' " Easily comment / uncomment blocks
-Plug 'skywind3000/asyncrun.vim' " Run commands / builds in background 
+Plug 'mrtazz/DoxygenToolkit.vim'      " Auto-insert Doxygen comments
+Plug 'tpope/vim-commentary'           " Easily comment / uncomment blocks
+Plug 'skywind3000/asyncrun.vim'       " Run commands / builds in background 
 Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between vim and tmux
-Plug 'sheerun/vim-polyglot' " Better syntax highlighting
-Plug 'w0ng/vim-hybrid' " Colorscheme
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'rhysd/vim-clang-format'
+Plug 'sheerun/vim-polyglot'           " Better syntax highlighting
+Plug 'w0ng/vim-hybrid'                " Colorscheme
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " Install fzf (fast fuzzy searcher)
+Plug 'junegunn/fzf.vim'               " fzf vim extension
+Plug 'airblade/vim-gitgutter'         " Git status on side bar and git operations
+Plug 'rhysd/vim-clang-format'         " Commands for applying clang-formatting
 
 if has('patch-8.1.2269')
   Plug 'ycm-core/YouCompleteMe' " Autocomplete and much more
