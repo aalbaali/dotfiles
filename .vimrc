@@ -42,6 +42,7 @@ set noswapfile " no swap files when writing in vim (I think they're usually ther
 set nobackup " no backup file. We're doing undodir/undofile instead. 
 set undodir=~/.vim/undodir "undo directory for 'backup'
 set incsearch " incremental search
+set paste " Well formatted text when pasting and no comments when inserting new lines
 
 set colorcolumn=100 " colors column at this limit
 highlight ColorColumn ctermbg=0 guibg=lightgrey
