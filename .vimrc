@@ -52,6 +52,7 @@ set nobackup " no backup file. We're doing undodir/undofile instead.
 set undodir=~/.vim/undodir "undo directory for 'backup'
 set incsearch " incremental search
 set paste " Well formatted text when pasting and no comments when inserting new lines
+
 set colorcolumn=100 " colors column at this limit
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 set ruler " show row and column
@@ -68,6 +69,10 @@ set wildmode=list:longest,full " list completions on command line, cycle through
 " Copy to clipboard. Note: requires `vim-gtk` (install using `sudo apt-get install vim-gtk`)
 vnoremap <leader>y "+y
 nnoremap <leader>yy V"+y
+
+
+" Ruler has column and AsyncRun status
+" set rulerformat=%60(%=%t\ %c\ %{g:asyncrun_status}%)
 
 " colorscheme
 colorscheme gruvbox

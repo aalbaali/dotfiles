@@ -134,9 +134,12 @@ setopt bash_auto_list
 
 # Python default version
 #alias python=python3
+alias gd="git diff"
+alias gdc="git diff --cached"
 alias gll="git log --graph --oneline --all --decorate"
 alias gs="git status"
-alias gm="git commit"
+alias gm="git commit -s"
+# alias gm="git commit"
 alias ga="git add"
 alias gb="git branch"
 alias gc="git checkout"
@@ -228,6 +231,30 @@ alias di="docker image"
 alias dils="docker image ls"
 alias drm="docker rm"
 alias drmi="docker rmi"
+alias ds="docker start"
+
+# List running container names
+function dn() {
+  docker ps $@ | awk 'FNR > 1 {print $(NF)}'
+}
+
+alias dna="dn -a"
+
+# Execute already running containers
+function dex() {
+  # Start container if not started
+  if [ $(docker container inspect -f '{{.State.Status}}' $1) != "running" ]; then
+    echo -e "\033[93mContainer \033[36;1m$1\033[0;93m not running. Will start it\033[0m"
+    ds $1;
+  fi
+  docker exec -it $1 bash
+}
+
+# Complete `dex` with a list of running containers
+#   1. Get all docker *running* containers (i.e., witout the `-a` flag)
+#   2. Get all rows after the first row (FNR > 1)
+#   3. Print last column ($(NF))
+complete -C "dn" dex
 
 # Julia aliases
 alias jj=julia
@@ -236,3 +263,6 @@ alias jpluto="julia -e 'using Pluto; Pluto.run()'"
 
 # File sizes
 alias sz=ncdu
+
+alias nv=nvim
+
