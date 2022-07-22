@@ -65,6 +65,10 @@ set softtabstop=2 " always use spaces, never tabs
 set wildmode=list:longest,full " list completions on command line, cycle through with tab
 "set wrap " automatically wrap text that extends beyond the screen length
 
+" Copy to clipboard. Note: requires `vim-gtk` (install using `sudo apt-get install vim-gtk`)
+vnoremap <leader>y "+y
+nnoremap <leader>yy V"+y
+
 " colorscheme
 colorscheme gruvbox
 set background=dark
