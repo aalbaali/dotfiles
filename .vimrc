@@ -22,6 +22,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " Install fzf (fast fuzzy s
 Plug 'junegunn/fzf.vim'               " fzf vim extension
 Plug 'airblade/vim-gitgutter'         " Git status on side bar and git operations
 Plug 'rhysd/vim-clang-format'         " Commands for applying clang-formatting
+Plug 'preservim/nerdtree'             " Navigate files using a tree structure
+
 
 if has('patch-8.1.2269')
   Plug 'ycm-core/YouCompleteMe' " Autocomplete and much more
@@ -110,3 +112,12 @@ set statusline+=%{GitStatus()}
 " vim-clang-format
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
+" nerdtree mappings
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+"   Opens the nerd-tree side toggle
+nnoremap <C-t> :NERDTreeToggle<CR>
+"   Finds the location of the currently opened file in the tree
+nnoremap <C-f> :NERDTreeFind<CR><C-w>w
+let NERDTreeMapActivateNode='<space>'
