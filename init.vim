@@ -92,6 +92,7 @@ au FileType * set fo-=c fo-=r fo-=o fo+=j
 
 " Set C++ comment strings to `//` instead of `/* */`
 autocmd FileType c,cpp setlocal commentstring=//\ %s
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " ======================================
 " Plugin settings and shortcuts
@@ -224,10 +225,12 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD :vsp<CR><Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gh <C-u>:CocCommand clangd.switchSourceHeader<cr>
+nmap <silent> gH :vsp<CR><C-u>:CocCommand clangd.switchSourceHeader<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
@@ -260,11 +263,11 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+" " Remap keys for applying codeAction to the current buffer.
+" nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
